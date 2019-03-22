@@ -1,0 +1,23 @@
+body {
+  padding: 50px;
+  font: 16px  Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+header, .header {
+  border: 1px solid gold;
+  text-align: center;
+}
+
+.dz-default.dz-message {
+  padding: 30px;
+  margin: 30px 0;
+  border: 1px dashed grey;
+}
+
+.dz-preview.dz-image-preview {
+  display: flex;
+}
