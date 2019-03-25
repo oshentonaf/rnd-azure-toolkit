@@ -27,6 +27,10 @@ const getStream = require('into-stream');
 const STORAGE_ACCOUNT_NAME = process.env.AZURE_STORAGE_ACCOUNT_NAME;
 const ACCOUNT_ACCESS_KEY = process.env.AZURE_STORAGE_ACCOUNT_ACCESS_KEY;
 
+const STORAGE_ACCOUNT_COG_NAME = process.env.AZURE_STORAGE_COG_NAME;
+const ACCOUNT_ACCESS_COG_KEY = process.env.AZURE_STORAGE_COG_KEY;
+
+
 const ONE_MEGABYTE = 1024 * 1024;
 const FOUR_MEGABYTES = 4 * ONE_MEGABYTE;
 const ONE_MINUTE = 60 * 1000;
@@ -264,6 +268,10 @@ async function execute( tempFile ) {
   console.log(`Blobs in "${containerName}" container:`);
   await showBlobNames(aborter, containerURL);
 
+  console.log(` go cognative  `);
+  await cognativeGo(tempFile);
+
+
   // const downloadResponse = await blockBlobURL.download(aborter, 0);
   // const downloadedContent = downloadResponse.readableStreamBody.read(content.length).toString();
   // console.log(`Downloaded blob content: "${downloadedContent}"`);
@@ -275,8 +283,83 @@ async function execute( tempFile ) {
   // console.log(`Container "${containerName}" is deleted`);
 }
 
+
+const cognativeGo = function ( tempFile ) {
+
+  const request = require('request');
+
+  // subscription key.
+  const subscriptionKey = ACCOUNT_ACCESS_COG_KEY;
+
+  // You must use the same location in your REST call as you used to get your
+  // subscription keys. For example, if you got your subscription keys from
+  // westus, replace "westcentralus" in the URL below with "westus".
+
+  const uriBase = 'https://westeurope.api.cognitive.microsoft.com/vision/v2.0/analyze';
+
+  const tempFileShort = tempFile.split('/Users/oliver.shenton/Sites/rnd-azure-toolkit/uploads/').pop();
+
+  const imageUrl = 'https://ldnwalker.blob.core.windows.net/demo5/' + tempFileShort;
+
+  // console.log('imageUrl = ' + imageUrl);
+
+  // Request parameters.
+  const params = {
+      'visualFeatures': 'Categories,Description,Color',
+      'details': '',
+      'language': 'en'
+  };
+
+  const options = {
+      uri: uriBase,
+      qs: params,
+      body: '{"url": ' + '"' + imageUrl + '"}',
+      headers: {
+          'Content-Type': 'application/json',
+          'Ocp-Apim-Subscription-Key' : subscriptionKey
+      }
+  };
+
+
+  request.post(options, (error, response, body) => {
+    if (error) {
+      console.log('Error: ', error);
+      return;
+    }
+    let jsonResponse = JSON.stringify(JSON.parse(body), null, '  ');
+    console.log('JSON Response\n');
+    console.log(jsonResponse);
+
+    // console.log(response);
+
+    // body.send({
+    //   //"request": JSON.stringify(req.body.queryString, null, 4),
+    //   "response": jsonResponse,
+    //   "msg": 'Hello World'
+    // });
+    responseCognative( jsonResponse );
+
+  });
+
+  console.log('sending results...');
+
+  
+}
+
+const responseCognative = function ( jsonResponse ) {
+  // POST method route
+  app.post('/', function (req, res) {
+    res.send('POST request to the homepage')
+  });
+  console.log('** responseCognative');
+  console.log('jsonResponse ' + jsonResponse)
+
+}
+
+
 app.listen(app.get('port'), function() {
     console.log('Express started at port ' + app.get('port'));
+    // console.log(jsonResponse);
 });
 
 module.exports = app;

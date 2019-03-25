@@ -14,3 +14,6 @@ jspm_packages/
 
 # dotenv environment variables file
 .env
+
+# images from upload on local server
+uploads/
