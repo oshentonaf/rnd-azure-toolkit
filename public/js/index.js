@@ -23,14 +23,34 @@ $('.btn.go').on('click', function (event) {
         method: 'post',
         data: {},
 
-        success: (jsonResponse) => {
+        success: (response) => {
 
-            let jsonResponseBLAG = jQuery.parseJSON(JSON.stringify(jsonResponse));
-            console.log('Response' + jsonResponse);
-            console.log( jsonResponse);
-            document.getElementById("demo").innerHTML = jsonResponseBLAG.body;
+            let dataParse = JSON.parse(response.body)
+            console.log(dataParse);
+            // console.log(dataParse.categories[0].name)
+
+            document.getElementById("demo").innerHTML = JSON.stringify(dataParse);
+
+            let ResultCategories = dataParse.categories;
+
+            for ( var i = 0; i < ResultCategories.length; i++) {
+                $('.cat' ).text(dataParse.categories[0].name);
+                $('.cat-score').text(Math.round((dataParse.categories[0].score * 100)));
+            }
+
+            let ResultDescription = dataParse.description.tags;
+            console.log(ResultDescription)
+            console.log(ResultDescription[1])
+            console.log(ResultDescription[10])
+
+            for ( var i = 0; i < ResultDescription.length; i++) {
+
+                $('.tagged').append('<li>' + ResultDescription[i] +
+                '</li>');
+            }
 
         },
+        dataType: 'json'
     })
 });
 

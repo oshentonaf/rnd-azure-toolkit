@@ -27,7 +27,7 @@ router.use('/Query', function (req, res, next) {
         // subscription key.
         const subscriptionKey = ACCOUNT_ACCESS_COG_KEY;
         const uriBase = 'https://westeurope.api.cognitive.microsoft.com/vision/v2.0/analyze';
-        const imageUrl = 'https://ldnwalker.blob.core.windows.net/demo5/1554372679056-quimet.png';
+        const imageUrl = 'https://ldnwalker.blob.core.windows.net/demo5/1554289020170-marsella.png';
 
         // const queryAzure = function() {
 
