@@ -1,10 +1,39 @@
-console.log('LOADED')
+/* Future js stuffs will go here... */
+
+if (window.location.href=="http://localhost:3000/image") {
+
+    console.log('LOADED');
+
+
+
 
 /**
  * Upload the photos using ajax request.
  *
  * @param formData
  */
+
+
+$('.btn.go').on('click', function (event) {
+
+    console.log('GO ');
+
+    $.ajax({
+        url: '/Query',
+        method: 'post',
+        data: {},
+
+        success: (jsonResponse) => {
+
+            let jsonResponseBLAG = jQuery.parseJSON(JSON.stringify(jsonResponse));
+            console.log('Response' + jsonResponse);
+            console.log( jsonResponse);
+            document.getElementById("demo").innerHTML = jsonResponseBLAG.body;
+
+        },
+    })
+});
+
 
 // TEST
 function uploadFilesAzure(formData) {
@@ -34,8 +63,8 @@ function uploadFilesAzure(formData) {
 
             return xhr;
         },
-        success: (jsonResponse) => {
-            console.log('jsonResponse: ' + jsonResponse);
+        success() {
+            console.log('jsonResponse: ' );
         }
     }).done(handleSuccess).fail(function (xhr, status) {
         console.log(status);
@@ -109,3 +138,5 @@ function handleSuccess(data) {
 $('#photos-input').on('change', function () {
     $('.progress-bar').width('0%');
 });
+}
+

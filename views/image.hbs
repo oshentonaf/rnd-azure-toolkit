@@ -1,0 +1,58 @@
+{{! image.hbs }}
+
+<a class="btn go" type="submit" name="Photo Uploads" value=" TEST">TEST - just sends hardcoded link to vision service</a>
+
+<h1>Azure Image</h1>
+<div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"><h1>Azure stuff</h1></div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+
+                <p>Supported image formats: JPEG, PNG, GIF, BMP</p>
+                <p>Image file size: Less than 4MB</p>
+                <p>Image dimension: Greater than 50 x 50 pixels</p>
+
+                <!-- Photos upload Form -->
+                <form id="upload-photos" method="post" action="/upload_photos" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="photos-input">File input</label>
+                        <input id="photos-input" type="file" name="photos[]" multiple="multiple" >
+                        <p class="help-block">You can upload up to 1 file</p>
+                    </div>
+                    <input type="hidden" name="csrf_token" value="just_a_text_field" />
+
+                    <input class="btn btn-default" type="submit" name="Photo Uploads" value=" Go" />
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4"> <br> </div>
+                <div class="col-md-4"></div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                            <span class="sr-only"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <h2>JSON response</h2>
+    <div id="demo"></div>
+
+        </div>
+        <!-- Photos Album Container -->
+        <div id="album" class="row"></div>
+
+        </div>
+    </div>
