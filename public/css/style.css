@@ -8,7 +8,9 @@ body {
   text-decoration: none; }
   .link--home {
     color: #e8999a; }
-
+form {
+  border: 1px solid grey;
+}
 .music {
   display: flex;
   flex-direction: column;

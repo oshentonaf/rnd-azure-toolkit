@@ -7,6 +7,50 @@ if (window.location.href=="http://localhost:3000/image") {
 
 
 
+$('.btn.go2').on('click', function (event) {
+
+    console.log('GO ');
+    let datavalue = document.getElementById("inputbox").value;
+    console.log(datavalue);
+
+    $.ajax({
+        type: "POST",
+        url: '/QueryFixed2',
+        data: {datavalue: datavalue},
+        success: (response) => {
+
+            let dataParse = JSON.parse(response.body)
+            console.log(dataParse);
+            // console.log(dataParse.categories[0].name)
+
+            document.getElementById("demo").innerHTML = JSON.stringify(dataParse);
+
+            if (dataParse.description.captions[0].text.length != null) {
+                document.querySelector('.description').innerHTML = dataParse.description.captions[0].text;
+            }
+
+            let ResultCategories = dataParse.categories;
+
+            for ( var i = 0; i < ResultCategories.length; i++) {
+                $('.cat' ).text(dataParse.categories[0].name);
+                $('.cat-score').text(Math.round((dataParse.categories[0].score * 100)));
+            }
+
+            let ResultDescription = dataParse.description.tags;
+
+            for ( var i = 0; i < ResultDescription.length; i++) {
+
+                $('.tagged').append('<li>' + ResultDescription[i] +
+                '</li>');
+            }
+
+        },
+        dataType: 'json'
+    })
+});
+
+
+
 /**
  * Upload the photos using ajax request.
  *
@@ -19,7 +63,7 @@ $('.btn.go').on('click', function (event) {
     console.log('GO ');
 
     $.ajax({
-        url: '/Query',
+        url: '/QueryFixed',
         method: 'post',
         data: {},
 
@@ -82,15 +126,13 @@ function uploadFilesAzure(formData) {
             });
 
             return xhr;
-        },
-        success() {
-            console.log('jsonResponse: ' );
         }
     }).done(handleSuccess).fail(function (xhr, status) {
         console.log(status);
     });
-
 }
+
+
 
 // On form submit, handle the file uploads.
 $('.btn.btn-default').on('click', function (event) {

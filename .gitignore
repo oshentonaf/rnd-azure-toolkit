@@ -17,3 +17,4 @@ jspm_packages/
 
 # images from upload on local server
 uploads/
+tmp_uploads/

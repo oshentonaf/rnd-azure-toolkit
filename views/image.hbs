@@ -1,6 +1,13 @@
 {{! image.hbs }}
 
-<a class="btn go" type="submit" name="Photo Uploads" value=" TEST">TEST - just sends hardcoded link to vision service</a>
+<a class="btn go" type="submit" name="Photo Uploads" value=" TEST">TEST -  sends hardcoded link to vision service</a>
+
+
+<form>
+    <input type="text" id="inputbox">
+    <a class="btn go2" type="submit" name="Photo Uploads" value=" TEST">Add full path link </a>
+    <p>example link https://upload.wikimedia.org/wikipedia/commons/7/79/Goblin_Valley%2C_Utah_%28panorama%29.png</p>
+</form>
 
 <h1>Azure Image</h1>
 <div class="container">
@@ -48,16 +55,25 @@
             </div>
 
     <h2>JSON response</h2>
+
     <div id="content">
         <h1>
             Categories: <span class="cat"></span> Score:
             <span class="cat-score"></span>
         </h1>
     </div>
+
+    <div>
+        <strong>Description</strong>
+        <p class="description"></p>
+    </div>
+
     <h3>Tagged</h3>
+
     <div class="card__wrapper">
         <ul class="tagged"></ul>
     </div>
+
     <div id="demo"></div>
 
         </div>
